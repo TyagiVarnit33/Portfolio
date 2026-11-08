@@ -3,6 +3,13 @@ import { Send, CheckCircle2, AlertCircle, Mail, Clock, Loader2 } from 'lucide-re
 import { GithubIcon, LinkedinIcon } from './BrandIcons.js';
 import { siteConfig } from '../config/site.js';
 
+
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || ''
+).replace(/\/$/, '');
+
+const apiUrl = (path: string) => `${API_BASE_URL}${path}`;
+
 interface ContactSectionProps {
   selectedService?: string;
 }
@@ -57,7 +64,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
     setStatusMessage('');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(apiUrl('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -105,7 +112,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
   return (
     <section id="contact" aria-label="Contact and Inquiries" className="py-20 bg-brand-bg-secondary/50 dark:bg-brand-dark-bg-secondary/40 border-t border-brand-border dark:border-brand-dark-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="max-w-2xl mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-brand-purple dark:text-brand-dark-purple">
@@ -120,11 +127,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* Left Column: Direct Links & Information (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white dark:bg-brand-dark-card border border-brand-border dark:border-brand-dark-border rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
-              
+
               <div>
                 <h3 className="font-bold text-lg text-brand-text dark:text-brand-dark-text">
                   Direct Channels
@@ -196,7 +203,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
           {/* Right Column: Interactive Form (7 cols) */}
           <div className="lg:col-span-7">
             <div className="bg-white dark:bg-brand-dark-card border border-brand-border dark:border-brand-dark-border rounded-2xl p-6 sm:p-8 shadow-sm">
-              
+
               {/* Submission Status Alerts */}
               {submitStatus === 'success' && (
                 <div className="mb-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-start gap-3 text-emerald-800 dark:text-emerald-300">
@@ -232,11 +239,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Sarah Jenkins"
-                      className={`w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border ${
-                        fieldErrors.name
+                      className={`w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border ${fieldErrors.name
                           ? 'border-red-500 focus:ring-red-500'
                           : 'border-brand-border dark:border-brand-dark-border focus:ring-brand-purple'
-                      } text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 transition-all`}
+                        } text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 transition-all`}
                     />
                     {fieldErrors.name && (
                       <p className="text-[11px] text-red-600 dark:text-red-400 mt-1">{fieldErrors.name}</p>
@@ -254,11 +260,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. sarah@example.com"
-                      className={`w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border ${
-                        fieldErrors.email
+                      className={`w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border ${fieldErrors.email
                           ? 'border-red-500 focus:ring-red-500'
                           : 'border-brand-border dark:border-brand-dark-border focus:ring-brand-purple'
-                      } text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 transition-all`}
+                        } text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 transition-all`}
                     />
                     {fieldErrors.email && (
                       <p className="text-[11px] text-red-600 dark:text-red-400 mt-1">{fieldErrors.email}</p>
@@ -348,11 +353,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell me about your project, goals, or role specifications..."
-                    className={`w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border ${
-                      fieldErrors.message
+                    className={`w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border ${fieldErrors.message
                         ? 'border-red-500 focus:ring-red-500'
                         : 'border-brand-border dark:border-brand-dark-border focus:ring-brand-purple'
-                    } text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 transition-all resize-y`}
+                      } text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 transition-all resize-y`}
                   />
                   <div className="flex justify-between items-center mt-1">
                     {fieldErrors.message ? (
@@ -396,3 +400,4 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
     </section>
   );
 };
+
