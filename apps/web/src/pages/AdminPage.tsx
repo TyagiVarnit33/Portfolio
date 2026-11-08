@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Lock, LogOut, CheckCircle2, Archive, Trash2, Mail, RefreshCw, Eye, X, ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || ''
+).replace(/\/$/, '');
+
+const apiUrl = (path: string) => `${API_BASE_URL}${path}`;
+
 interface Submission {
   id: string;
   name: string;
@@ -41,7 +47,7 @@ export const AdminPage: React.FC = () => {
 
   const verifyToken = async (authToken: string) => {
     try {
-      const res = await fetch('/api/admin/me', {
+      const res = await fetch(apiUrl('/api/admin/me'), {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       if (res.ok) {
@@ -67,7 +73,7 @@ export const AdminPage: React.FC = () => {
     setLoginError('');
 
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(apiUrl('/api/admin/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -86,7 +92,7 @@ export const AdminPage: React.FC = () => {
         setLoginError(data.error || 'Authentication failed. Please verify credentials.');
       }
     } catch {
-      setLoginError('Unable to reach backend API at http://localhost:5000. Please ensure "npm run dev" or "npm run dev:api" is running.');
+      setLoginError('Unable to reach backend API. Please ensure the API server is running.');
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +100,7 @@ export const AdminPage: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/logout', { method: 'POST' });
+      await fetch(apiUrl('/api/admin/logout'), { method: 'POST' });
     } catch (_) { }
     setIsAuthenticated(false);
     setToken('');
@@ -105,8 +111,8 @@ export const AdminPage: React.FC = () => {
   const fetchSubmissions = async (authToken = token, filter = statusFilter) => {
     setIsFetchingSubmissions(true);
     try {
-      const url = filter === 'all' ? '/api/admin/submissions' : `/api/admin/submissions?status=${filter}`;
-      const res = await fetch(url, {
+      const endpoint = filter === 'all' ? '/api/admin/submissions' : `/api/admin/submissions?status=${filter}`;
+      const res = await fetch(apiUrl(endpoint), {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       const data = await res.json();
@@ -122,7 +128,7 @@ export const AdminPage: React.FC = () => {
 
   const handleStatusChange = async (id: string, newStatus: 'unread' | 'read' | 'archived') => {
     try {
-      const res = await fetch(`/api/admin/submissions/${id}`, {
+      const res = await fetch(apiUrl(`/api/admin/submissions/${id}`), {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -149,7 +155,7 @@ export const AdminPage: React.FC = () => {
     }
 
     try {
-      const res = await fetch(`/api/admin/submissions/${id}`, {
+      const res = await fetch(apiUrl(`/api/admin/submissions/${id}`), {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -314,8 +320,8 @@ export const AdminPage: React.FC = () => {
               fetchSubmissions(token, filter);
             }}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors ${statusFilter === filter
-                ? 'bg-brand-purple text-white shadow-sm'
-                : 'bg-white dark:bg-brand-dark-card border border-brand-border dark:border-brand-dark-border text-brand-text-secondary hover:text-brand-text dark:hover:text-white'
+              ? 'bg-brand-purple text-white shadow-sm'
+              : 'bg-white dark:bg-brand-dark-card border border-brand-border dark:border-brand-dark-border text-brand-text-secondary hover:text-brand-text dark:hover:text-white'
               }`}
           >
             {filter} {filter === 'unread' && unreadCount > 0 ? `(${unreadCount})` : ''}
@@ -371,10 +377,10 @@ export const AdminPage: React.FC = () => {
                   <td className="py-3.5 px-4">
                     <span
                       className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${sub.status === 'unread'
-                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300 border border-amber-300'
-                          : sub.status === 'read'
-                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-950/70 dark:text-blue-300'
-                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                        ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300 border border-amber-300'
+                        : sub.status === 'read'
+                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-950/70 dark:text-blue-300'
+                          : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
                         }`}
                     >
                       {sub.status}
