@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Varnit Tyagi — Full-Stack Developer Portfolio
 
 A production-ready personal portfolio website for **Varnit Tyagi**, a B.Tech Computer Science and Engineering student at CGC University, Mohali, specializing in frontend development and UI/UX design.
@@ -374,3 +375,6 @@ In adherence to the Master Prompt requirements, no personal information, metrics
 ## License
 
 This project is authored by Varnit Tyagi. Code released under the MIT License.
+=======
+# Portfolio
+>>>>>>> c1a480a97fbca840d34a38e64161e1ae76e9908a
