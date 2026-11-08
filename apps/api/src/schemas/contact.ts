@@ -37,13 +37,9 @@ export const contactSchema = z.object({
   project_deadline: z
     .string()
     .trim()
+    .max(100, 'Project deadline must not exceed 100 characters')
     .optional()
-    .nullable()
-    .refine((val) => {
-      if (!val) return true;
-      const date = new Date(val);
-      return !isNaN(date.getTime());
-    }, 'Project deadline must be a valid date'),
+    .nullable(),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;

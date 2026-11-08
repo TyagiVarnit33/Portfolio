@@ -36,7 +36,9 @@ let pool: pg.Pool | null = null;
 let usePostgres = false;
 
 // Fallback local storage directory for offline development when DATABASE_URL is not set
-const localDbDir = path.resolve(process.cwd(), 'data');
+const localDbDir = fs.existsSync(path.resolve(currentDirectory, '..', '..', 'data'))
+  ? path.resolve(currentDirectory, '..', '..', 'data')
+  : path.resolve(currentDirectory, '..', 'data');
 const localDbFile = path.join(localDbDir, 'submissions.json');
 
 function ensureLocalDbFile() {
@@ -59,7 +61,7 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     message TEXT NOT NULL,
     service_type VARCHAR(100),
     budget_range VARCHAR(100),
-    project_deadline DATE,
+    project_deadline VARCHAR(100),
     status VARCHAR(50) DEFAULT 'unread' CHECK (status IN ('unread', 'read', 'archived')),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -102,6 +104,13 @@ export async function initDb(): Promise<void> {
       // Initialize schema (embedded to guarantee availability regardless of file paths)
       await client.query(SCHEMA_SQL);
       console.log(' PostgreSQL database schema initialized.');
+
+      // Ensure project_deadline column accepts timeline string values if previously created as DATE
+      try {
+        await client.query('ALTER TABLE contact_submissions ALTER COLUMN project_deadline TYPE VARCHAR(100);');
+      } catch (_) {
+        // Ignored if column is already VARCHAR or table newly initialized
+      }
 
       // Check and seed admin account if none exists
       const adminCountRes = await client.query('SELECT COUNT(*) FROM admin_users;');

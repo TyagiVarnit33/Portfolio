@@ -470,9 +470,9 @@ export const AdminPage: React.FC = () => {
                 </span>
               </div>
               <div>
-                <span className="text-brand-text-secondary dark:text-brand-dark-text-secondary block">Target Deadline</span>
+                <span className="text-brand-text-secondary dark:text-brand-dark-text-secondary block">Target Timeline / Deadline</span>
                 <span className="font-semibold text-brand-text dark:text-brand-dark-text">
-                  {activeSubmission.project_deadline ? new Date(activeSubmission.project_deadline).toLocaleDateString() : 'Flexible'}
+                  {activeSubmission.project_deadline || 'Flexible'}
                 </span>
               </div>
               <div>

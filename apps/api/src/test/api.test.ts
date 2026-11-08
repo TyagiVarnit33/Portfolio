@@ -25,8 +25,9 @@ describe('Portfolio API Integration Tests', () => {
         name: 'Jane Doe',
         email: 'jane.doe@example.com',
         subject: 'Frontend Project Collaboration',
-        service_type: 'Responsive Website Development',
-        budget_range: '$1,000 - $3,000',
+        service_type: 'Portfolio Website Development',
+        budget_range: "Let's Discuss / Open to Negotiation",
+        project_deadline: 'Within 1 Week',
         message: 'Hello Varnit, I would love to collaborate on a new responsive web application project.',
       };
 

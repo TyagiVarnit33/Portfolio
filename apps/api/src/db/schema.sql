@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     message TEXT NOT NULL,
     service_type VARCHAR(100),
     budget_range VARCHAR(100),
-    project_deadline DATE,
+    project_deadline VARCHAR(100),
     status VARCHAR(50) DEFAULT 'unread' CHECK (status IN ('unread', 'read', 'archived')),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()

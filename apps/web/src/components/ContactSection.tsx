@@ -19,7 +19,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
     name: '',
     email: '',
     subject: '',
-    service_type: selectedService || '',
+    service_type: selectedService || 'General Inquiry / Hiring',
     message: '',
     budget_range: '',
     project_deadline: '',
@@ -79,7 +79,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
           name: '',
           email: '',
           subject: '',
-          service_type: '',
+          service_type: selectedService || 'General Inquiry / Hiring',
           message: '',
           budget_range: '',
           project_deadline: '',
@@ -283,11 +283,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
                       onChange={(e) => setFormData({ ...formData, service_type: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border border-brand-border dark:border-brand-dark-border text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-brand-purple transition-all"
                     >
-                      <option value="">General Inquiry / Hiring</option>
-                      <option value="Responsive Website Development">Responsive Website Development</option>
+                      <option value="General Inquiry / Hiring">General Inquiry / Hiring</option>
                       <option value="Landing Page Development">Landing Page Development</option>
+                      <option value="Responsive Website Development">Responsive Website Development</option>
+                      <option value="Portfolio Website Development">Portfolio Website Development</option>
                       <option value="Figma-to-Code Implementation">Figma-to-Code Implementation</option>
                       <option value="Frontend UI Improvements">Frontend UI Improvements</option>
+                      <option value="UI/UX Design">UI/UX Design</option>
+                      <option value="E-commerce Website Development">E-commerce Website Development</option>
+                      <option value="React Dashboard Development">React Dashboard Development</option>
                     </select>
                   </div>
 
@@ -319,11 +323,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
                       className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border border-brand-border dark:border-brand-dark-border text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-brand-purple transition-all"
                     >
                       <option value="">Select range...</option>
-                      <option value="< $500">&lt; $500</option>
-                      <option value="$500 - $1,500">$500 - $1,500</option>
-                      <option value="$1,500 - $3,000">$1,500 - $3,000</option>
-                      <option value="$3,000+">$3,000+</option>
-                      <option value="Full-time / Internship Compensation">Full-time / Internship Compensation</option>
+                      <option value="Under ₹3,000">Under ₹3,000</option>
+                      <option value="₹3,000 – ₹6,000">₹3,000 – ₹6,000</option>
+                      <option value="₹6,000 – ₹10,000">₹6,000 – ₹10,000</option>
+                      <option value="₹10,000 – ₹20,000">₹10,000 – ₹20,000</option>
+                      <option value="₹20,000+">₹20,000+</option>
+                      <option value="Let's Discuss / Open to Negotiation">Let's Discuss / Open to Negotiation</option>
+                      <option value="Internship / Full-time Opportunity">Internship / Full-time Opportunity</option>
                     </select>
                   </div>
 
@@ -331,13 +337,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedService 
                     <label htmlFor="contact-deadline" className="block text-xs font-semibold text-brand-text dark:text-brand-dark-text mb-1.5">
                       Target Timeline / Deadline (Optional)
                     </label>
-                    <input
+                    <select
                       id="contact-deadline"
-                      type="date"
                       value={formData.project_deadline}
                       onChange={(e) => setFormData({ ...formData, project_deadline: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg-secondary dark:bg-brand-dark-bg border border-brand-border dark:border-brand-dark-border text-brand-text dark:text-brand-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-brand-purple transition-all"
-                    />
+                    >
+                      <option value="">Select timeline...</option>
+                      <option value="Flexible">Flexible</option>
+                      <option value="Within 1 Week">Within 1 Week</option>
+                      <option value="1–2 Weeks">1–2 Weeks</option>
+                      <option value="2–4 Weeks">2–4 Weeks</option>
+                      <option value="1+ Month">1+ Month</option>
+                      <option value="Specific Deadline">Specific Deadline</option>
+                    </select>
                   </div>
                 </div>
 
