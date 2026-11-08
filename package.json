@@ -1,0 +1,22 @@
+{
+  "name": "varnit-tyagi-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,magenta \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "build": "npm run build --workspaces",
+    "build:web": "npm run build --workspace=apps/web",
+    "build:api": "npm run build --workspace=apps/api",
+    "test": "npm run test --workspaces",
+    "test:web": "npm run test --workspace=apps/web",
+    "test:api": "npm run test --workspace=apps/api"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

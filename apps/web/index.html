@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Varnit Tyagi — Frontend Developer & UI/UX Designer</title>
+    <meta
+      name="description"
+      content="Portfolio of Varnit Tyagi, B.Tech CSE student specializing in frontend development and UI/UX design. Thoughtful digital experiences with React, TypeScript, and high usability."
+    />
+    <meta name="author" content="Varnit Tyagi" />
+    <meta name="keywords" content="Varnit Tyagi, Frontend Developer, UI/UX Designer, React, TypeScript, Portfolio, CGC University" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Varnit Tyagi — Frontend Developer & UI/UX Designer" />
+    <meta property="og:description" content="I design and build thoughtful digital experiences with React, TypeScript, and a focus on usability." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Varnit Tyagi — Frontend Developer & UI/UX Designer" />
+    <meta name="twitter:description" content="I design and build thoughtful digital experiences with React, TypeScript, and a focus on usability." />
+
+    <!-- Preconnect & Load Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Early Theme Detection to prevent theme flash (FOUC) -->
+    <script>
+      (function () {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-brand-bg dark:bg-brand-dark-bg text-brand-text dark:text-brand-dark-text antialiased selection:bg-brand-purple-light selection:text-brand-purple min-h-screen transition-colors duration-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
